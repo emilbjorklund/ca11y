@@ -7,7 +7,15 @@ export default {
     return !isNaN(date.getTime())
   },
 
-  getDateInfo(date) {
+  isDateInRange(date, minDate, maxDate) {
+    console.log(minDate, maxDate)
+    if (!(minDate && maxDate)) {
+      return true;
+    }
+    return (date >= minDate && date <= maxDate)
+  },
+
+  getDateInfo(date, min=null, max=null) {
     if (this.isDateValid(date)) {
       return {
         date     : date,
