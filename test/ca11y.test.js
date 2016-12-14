@@ -27,6 +27,16 @@ describe('Ca11y', () => {
       const init = () => new Ca11y(input, { parser: 'notafunction' })
       assert.throws(init, TypeError)
     })
+
+    it('throws if options.getMinDate is declared but not a function', () => {
+      const init = () => new Ca11y(input, { getMinDate: 'notafunction' })
+      assert.throws(init, TypeError)
+    })
+
+    it('throws if options.getMaxDate is declared but not a function', () => {
+      const init = () => new Ca11y(input, { getMinDate: 'notafunction' })
+      assert.throws(init, TypeError)
+    })
   })
 
   // Rendering
