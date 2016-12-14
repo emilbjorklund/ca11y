@@ -1,3 +1,3 @@
-export default function onSelect(input, value, state, date) {
+export default function onSelect(value, input, state, date) {
   input.value = value
 }
