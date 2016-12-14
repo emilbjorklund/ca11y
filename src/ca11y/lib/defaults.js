@@ -6,6 +6,8 @@ export default {
   parser,
   formatter,
   onSelect,
+  min: null,
+  max: null,
   format: ['mm', 'dd', 'yyyy'],
   delimiter: "/",
   transitionDuration: 200, // If animating open the picker, specify the transitionDuration
