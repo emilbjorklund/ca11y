@@ -175,7 +175,7 @@ class Ca11y {
       delegate(this.ui.calendar, '.ca11y__nav.-next', 'click', this.incrementMonth.bind(this,  1)),
       delegate(this.ui.calendar, '.ca11y__nav.-prev', 'click', this.incrementMonth.bind(this,  -1)),
       delegate(this.ui.calendarDays, '.ca11y__day', 'click', this.onDayClick.bind(this)),
-      delegate(this.ui.calendar, 'button', 'blur', this.close.bind(this), true),
+      delegate(this.ui.calendar, 'button:not([disabled])', 'blur', this.close.bind(this), true),
       delegate(this.ui.calendar, 'button', 'focus', this.cancelClose.bind(this), true)
     )
     this.ui.wrapper.addEventListener('keydown', this.onKeydown.bind(this))
