@@ -11,5 +11,7 @@ describe('util.js', () => {
     assert.equal(util.isDateInRange(date, min, max), true);
     assert.equal(util.isDateInRange(tooBig, min, max), false);
     assert.equal(util.isDateInRange(tooSmall, min, max), false);
+    assert.equal(util.isDateInRange(min, min, max), true);
+    assert.equal(util.isDateInRange(max, min, max), true);
   })
 })
