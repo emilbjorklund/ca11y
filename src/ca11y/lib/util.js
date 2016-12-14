@@ -8,7 +8,6 @@ export default {
   },
 
   isDateInRange(date, minDate, maxDate) {
-    console.log(minDate, maxDate)
     if (!(minDate && maxDate)) {
       return true;
     }
