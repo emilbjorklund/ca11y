@@ -19,6 +19,8 @@ class Ca11y {
     Ca11y.pickers.push(this)
     validate(options)
     this.props = Object.assign({}, defaults, options, { id: Ca11y.pickers.length })
+    this.setMinDate(el);
+    this.setMaxDate(el);
     this.setInitialState(el.value)
     this.setUI(el)
     this.listen()
@@ -309,7 +311,10 @@ class Ca11y {
     const { month, fullYear } = this.state
     const date = new Date(fullYear, month, day)
 
-    this.setDate(date, silent)
+    if (util.isDateInRange(date, this.props.min, this.props.max)) {
+      this.setDate(date, silent)
+    }
+    
 
     if (!keepOpen) this.close(silent)
   }
@@ -362,13 +367,16 @@ class Ca11y {
    * @return { Object } dayData
    **/
   getDayData(day) {
+    var isInRange = util.isDateInRange(new Date(new Date(this.state.date).setDate(day)), this.props.min, this.props.max)
     return {
       day,
       title               : this.props.dayTitles[day - 1],
       cellEmptyClass      : (day ? '' : ' -empty'),
       cellAriaHidden      : (day ? '' : ' aria-hidden="true"'),
       buttonTodayClass    : (this.isToday(day) ? ' -today' : ''),
-      buttonSelectedClass : (this.state.day === day ? ' -selected' : '')
+      buttonSelectedClass : (this.state.day === day ? ' -selected' : ''),
+      outOfRange          : !isInRange,
+      cellOutOfRangeClass : (!isInRange? ' -outofrange': '')
     }
   }
 
