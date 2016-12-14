@@ -48,6 +48,44 @@ class Ca11y {
     this.setState({ today }, true)
     this.setDate(initialDate.date, true)
   }
+  /**
+   * Sets a minimum date based on min-attribute on input element.
+   * Can be overridden by callable passed in as getMinDate in options
+   * @return {void}
+   */
+  setMinDate(el) {
+    var options = this.props
+
+    this.props.min = options.getMinDate?
+      options.getMinDate.apply(this):
+      (function () {
+        if (el.hasAttribute('min') &&
+            util.isDateValid(new Date(el.getAttribute('min')))) {
+          return new Date(el.getAttribute('min'))
+        } else {
+          return null
+        }
+      }())
+  }
+  /**
+   * Sets a maximum date based on min-attribute on input element.
+   * Can be overridden by callable passed in as getMaxDate in options
+   * * @return {void}
+   */
+  setMaxDate(el) {
+    var options = this.props
+
+    this.props.max = options.getMaxDate?
+      options.getMaxDate.apply(this):
+      (function () {
+        if (el.hasAttribute('max') &&
+            util.isDateValid(new Date(el.getAttribute('max')))) {
+          return new Date(el.getAttribute('max'))
+        } else {
+          return null
+        }
+      }())
+  }
 
   /**
    * Initializes Cally's UI. Using configured options this method invokes
