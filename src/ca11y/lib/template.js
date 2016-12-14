@@ -4,6 +4,7 @@ const TEMPLATES = {
   dayButton(data) {
     return `
       <button
+        ${ data.outOfRange? 'disabled': '' }
         type="button"
         class="ca11y__day${ data.buttonTodayClass }${ data.buttonSelectedClass }"
         data-day="${ data.day }"
@@ -16,7 +17,7 @@ const TEMPLATES = {
 
   tableCell(data) {
     return `
-      <td class="ca11y__cell${ data.cellEmptyClass }"${ data.cellAriaHidden }>
+      <td class="ca11y__cell${ data.cellEmptyClass }${data.cellOutOfRangeClass}"${ data.cellAriaHidden }>
         ${ data.day && TEMPLATES.dayButton(data) }
       </td>
     `.trim()
