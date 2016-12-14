@@ -159,9 +159,16 @@
   &.-selected
     background-color: $highlight
     color: #fff
-
   &:hover
     background-color: rgba($highlight, 0.5)
 
   &:focus
     border-color: rgba($highlight, 0.5)
+
+  &[disabled]
+    color: $disabledText
+    cursor: not-allowed
+    background-color: #f6f6f6
+  &:hover[disabled]
+    background-color: #fff !important
+    border-color: #f6f6f6
