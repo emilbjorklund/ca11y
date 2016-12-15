@@ -66,4 +66,35 @@ describe('Ca11y', () => {
       assert.equal(ca11yNode.length, 1)
     })
   })
+
+  describe('when using min- and max-attributes and rendered into the document', () => {
+    let instance
+
+    beforeEach(() => {
+      document.body.innerHTML = window.__html__['test/index.html']
+      const input = document.getElementById('date-input-minmax')
+      instance = new Ca11y(input, {
+        format: ['yyyy', 'mm', 'dd'],
+        delimiter: '-'
+      })
+    })
+
+    afterEach(() => {
+      instance.destroy()
+      instance = null
+      document.body.innerHTML = ''
+    })
+
+    it('has 11 empty days in january', () => {
+      const outofrange = document.querySelectorAll('.ca11y__cell.-empty')
+      assert.equal(outofrange.length, 11)
+    })
+
+    it('has seven disabled days in january', () => {
+      const disabled = document.querySelectorAll('.ca11y__cell button[disabled]')
+      const outofrange = document.querySelectorAll('.ca11y__cell.-outofrange')
+      assert.equal(disabled.length, 6)
+      assert.equal(outofrange.length, 6)
+    })
+  })
 })
