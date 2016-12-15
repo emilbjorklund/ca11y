@@ -51,22 +51,26 @@ class Ca11y {
     this.setDate(initialDate.date, true)
   }
 
-  setMinMax(el, attrName) {
-    var options = this.props
+  setMinOrMax(el, attrName) {
+    let options = this.props
     // Limit options to valid names based on arg.
-    var attr = (attrName === 'min'? 'min': 'max')
-    var callable = (attrName === 'min'? 'getMinDate': 'getMaxDate')
+    let attr = (attrName === 'min'? 'min': 'max')
+    let callable = (attrName === 'min'? 'getMinDate': 'getMaxDate')
+    let date
 
-    var date
-
+    // If the getter is passed in as option, apply it and save result as min/max-prop.
     if (options[callable]) {
-      this.props[attr] = options[callable].apply(this)
+      options[attr] = options[callable].apply(this)
     } else if (el.hasAttribute(attr)) {
-      this.props[attr] = new Date(el.getAttribute(attr))
+      date = new Date(el.getAttribute(attr))
+      // chip away timezone offset to make it properly comparable with other dates.
+      options[attr] = new Date(
+        Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+        )
     } else {
-      this.props[attr] = null
+      options[attr] = null
     }
-    return this.props[attr]
+    return options[attr]
   }
 
   /**
@@ -75,7 +79,7 @@ class Ca11y {
    * @return {Date}
    */
   setMinDate(el) {
-    return this.setMinMax(el, 'min')
+    return this.setMinOrMax(el, 'min')
   }
   /**
    * Sets a maximum date based on min-attribute on input element.
@@ -83,7 +87,7 @@ class Ca11y {
    * * @return {Date}
    */
   setMaxDate(el) {
-    return this.setMinMax(el, 'max')
+    return this.setMinOrMax(el, 'max')
   }
 
   /**
