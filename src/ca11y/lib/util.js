@@ -8,12 +8,10 @@ export default {
   },
 
   isDateInRange(date, minDate, maxDate) {
-    // Make sure that the timezone offset is removed from the date.
-    date = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
     // set the max date to 1 millisecond before it ticks over to next date,
     // to make sure it's inclusive of whole day.
     maxDate = maxDate && maxDate.setUTCMilliseconds((24 * 60 * 1000) - 1)
-    
+
     if (!(minDate && maxDate)) {
       return true
     }
